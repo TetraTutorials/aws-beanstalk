@@ -67,20 +67,35 @@ else
 <p id="errorMessage" style="color:#C00; font-style:italic;"></p>
 
 <?php
-require_once('conn.php');
-$result = mysql_query("SELECT * FROM tbllogin");
-echo "<table border='2'>";
-echo "<th>Username</th><th>Password</th>";
-while($row=mysql_fetch_array($result))
-{ echo "<tr>";
-$idn=$row['id'];$un=$row['username'];$pd=$row['psd'];
- echo "<td>".$row['username']." </td>";
-   echo "<td>".$row['psd']."</td>";
-   echo "<td><a href='delete.php?id=$idn'>Delete</a></td>
-   <td><a href='home.php?id=$idn&action=edit&un=$un&pd=$pd'>Edit</a></td>";
-	echo "</tr>";
-	}
-echo "</table>";
+$servername = "tetranoodle.cksjypy9h04e.us-east-1.rds.amazonaws.com";
+$username = "tetranoodle";
+$password = "tetranoodle";
+$dbname = "tetranoodle";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$sql = "SELECT id, username, psd FROM tbllogin";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        echo " ID :{$row['id']}  <br> ".
+         " NAME : {$row['username']} <br> ".
+         " PASSW : {$row['psd']} <br> ".
+         "--------------------------------<br>";
+
+    }
+} else {
+    echo "0 results";
+}
+
+mysqli_close($conn);
 
 ?>
 
