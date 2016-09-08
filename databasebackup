@@ -19,7 +19,7 @@
 --
 
 CREATE DATABASE IF NOT EXISTS db;
-USE db;
+USE tetranoodle;
 
 --
 -- Definition of table `tbllogin`
